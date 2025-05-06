@@ -9,7 +9,6 @@ require_once __DIR__ . '/../config/db.php';
 try {
     $pdo = getDB();
     $stmt = $pdo->query("SELECT 1");
-    echo "<h1>Ошщибка подключения</h1>";
 } catch (PDOException $e) {
     echo "<h1>Ошибка подключения: </h1>";
     echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
@@ -42,5 +41,13 @@ try {
 <body>
 <h1>Добро пожаловать в Hogwarts!</h1>
 <p>Здесь начинаются ваши знания.</p>
+<?php
+    $query = $pdo->query("SELECT * FROM users");
+    while ($row = $query->fetch()) {
+       echo sprintf("Имя: %s<br>", $row['first_name']);
+       echo sprintf("Фамилия: %s<br>", $row['second_name']);
+    }
+?>
+
 </body>
 </html>
