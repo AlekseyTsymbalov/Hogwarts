@@ -8,5 +8,5 @@ create table if not exists users
     middle_name   varchar(63)              not null,
     date_of_birth date                     not null,
     password      varchar(63)              not null,
-    created_at    timestamp with time zone not null
+    created_at    timestamp with time zone DEFAULT now() not null
 )
