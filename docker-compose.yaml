@@ -3,7 +3,7 @@ version: '3.9'
 services:
   postgres_hogwarts:
     image: postgres:17.4
-    container_name: hogwarts
+    container_name: hogwarts_university
     environment:
       POSTGRES_USER: aleksey
       POSTGRES_PASSWORD: magic127
