@@ -57,7 +57,8 @@ try {
     <input type="text" name="second_name" placeholder="Фамиля" required>
     <input type="text" name="middle_name" placeholder="Отчество" required>
     <input type="text" name="date_of_birth" placeholder="Дата рождения" required>
-    <input type="text" name="password" placeholder="Пароль" required>
+    <input type="email" name="email" placeholder="Почта" required>
+    <input type="password" name="password" placeholder="Пароль" required>
     <button type="submit">Отправить</button>
 </form>
 <p>Здесь начинаются ваши знания.</p>
@@ -70,6 +71,7 @@ try {
         echo sprintf("Фамилия: %s<br>", $row['second_name']);
         echo sprintf("Отчество: %s<br>", $row['middle_name']);
         echo sprintf("День Рожденья: %s<br>", $row['date_of_birth']);
+        echo sprintf("Ваша почта: %s<br>", $row['email']);
         echo sprintf("Пароль: %s<br>", $row['password']);
         echo sprintf("Дата создания: %s<br><br>", $row['created_at']);
         $count++;
