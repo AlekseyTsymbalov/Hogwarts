@@ -9,22 +9,6 @@ require_once __DIR__ . '/../config/db.php';
 try {
     $pdo = getDB();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $firstName = htmlspecialchars($_POST['first_name']);
-        $secondName = htmlspecialchars($_POST['second_name']);
-        $middleName = htmlspecialchars($_POST['middle_name']);
-        $dateOfBirth = htmlspecialchars($_POST['date_of_birth']);
-        $password = htmlspecialchars($_POST['password']);
-
-        $stmt = $pdo->prepare(
-            "INSERT INTO users (first_name, second_name, middle_name, date_of_birth, password) 
-        VALUES (:first_name, :second_name, :middle_name, :date_of_birth, :password)"
-        );
-        $stmt->execute([$firstName, $secondName, $middleName, $dateOfBirth, $password]);
-
-        echo '<p class="success">Пользователь добавлен!</p>';
-    }
-
     $stmt = $pdo->query("SELECT 1");
 } catch (PDOException $e) {
     echo "<h1>Ошибка подключения: </h1>";
