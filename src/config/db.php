@@ -6,7 +6,7 @@ if (!defined('HOGWARTS_INIT')) {
     die("Доступ запрещён! ЛОЛ!");
 }
 
-require_once '../include/constants.php';
+require_once '/var/www/public/include/constants.php';
 
 function getDB(): PDO
 {
