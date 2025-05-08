@@ -1,6 +1,36 @@
 version: '3.9'
 
 services:
+  php:
+    build:
+      context: .              # Build context is current directory
+      dockerfile: docker/php/Dockerfile
+    container_name: php83_app # Name our container
+    volumes:
+      - ./src:/var/www/public   # Mount our source code
+    networks:
+      - postgres_form_network          # Connect to our network
+    environment:
+      PHP_IDE_CONFIG: serverName=Docker # For Xdebug
+    # Make container restart unless stopped manually
+    restart: unless-stopped
+
+    # Nginx Service
+  nginx:
+    image: nginx:latest      # Use official Nginx image
+    container_name: nginx_app
+    ports:
+      - "8000:80"           # Map port 8080 on our PC to 80 in container
+    volumes:
+      - ./src:/var/www/public  # Mount same source code
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php                 # Wait for PHP container
+    networks:
+      - postgres_form_network
+    restart: unless-stopped
+
+
   postgres_hogwarts:
     image: postgres:17.4
     container_name: hogwarts_university
@@ -37,6 +67,11 @@ services:
     restart: unless-stopped
     tty: true
     stdin_open: true
+    networks:
+      - postgres_form_network
+networks:
+  postgres_form_network:
+    driver: bridge
 
 volumes:
   pgdata:
