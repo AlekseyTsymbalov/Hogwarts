@@ -14,7 +14,7 @@ $secondName = htmlspecialchars($_POST['second_name'] ?? "");
 $middleName = htmlspecialchars($_POST['middle_name'] ?? "");
 $dateOfBirth = htmlspecialchars($_POST['date_of_birth'] ?? "");
 $email = htmlspecialchars($_POST['email'] ?? "");
-$password = htmlspecialchars($_POST['password'] ?? "");
+$password = md5(htmlspecialchars($_POST['password'] ?? ""));
 
 if (
     empty($firstName)
@@ -30,12 +30,22 @@ if (
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     die("Вы ввели некорректный адрес почты!");
 }
+$countEmailSql = <<<SQL
+SELECT COUNT(*) FROM users WHERE email = '$email'
+SQL;
+$pdo = getDB();
+$query = $pdo->query($countEmailSql);
+$countEmail = $query->fetch();
+
+if ($countEmail["count"] > 0) {
+    die("Пользователь с такой почтой уже существует");
+}
+
 $sql = <<<SQL
 INSERT INTO users (first_name, second_name, middle_name, date_of_birth, email, password) 
     VALUES (:first_name, :second_name, :middle_name, :date_of_birth, :email, :password) 
 SQL;
 
-$pdo = getDB();
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$firstName, $secondName, $middleName, $dateOfBirth, $email, $password]);
 
