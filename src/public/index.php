@@ -59,11 +59,18 @@ try {
 <h1>Добро пожаловать в Hogwarts!</h1>
 <p>Здесь начинаются ваши знания.</p>
 <?php
-$query = $pdo->query("SELECT * FROM users");
-while ($row = $query->fetch()) {
-    echo sprintf("Имя: %s<br>", $row['first_name']);
-    echo sprintf("Фамилия: %s<br>", $row['second_name']);
-}
+    $query = $pdo->query("SELECT * FROM users");
+    $count = 1;
+    while ($row = $query->fetch()) {
+        echo "Пользователь: $count<br>";
+        echo sprintf("Имя: %s<br>", $row['first_name']);
+        echo sprintf("Фамилия: %s<br>", $row['second_name']);
+        echo sprintf("Отчество: %s<br>", $row['middle_name']);
+        echo sprintf("День Рожденья: %s<br>", $row['date_of_birth']);
+        echo sprintf("Пароль: %s<br>", $row['password']);
+        echo sprintf("Дата создания: %s<br><br>", $row['created_at']);
+        $count++;
+    }
 ?>
 
 </body>
