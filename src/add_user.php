@@ -49,4 +49,4 @@ SQL;
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$firstName, $secondName, $middleName, $dateOfBirth, $email, $password]);
 
-header("Location: /index.php");
+header("Location: /login.php");

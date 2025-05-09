@@ -2,25 +2,27 @@
 
 declare(strict_types = 1);
 
+const HOGWARTS_INIT = true;
+
 require_once __DIR__ . '/config/db.php';
 
 $pdo = getDB();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
+    $password = md5(trim($_POST['password']));
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && $password === $user['password']) {
         $_SESSION['user'] = $user;
         header('Location: index.php');
         exit();
-    } else {
-        $error = "Неверный email или пароль!!!";
     }
+
+    die("Неверный email или пароль!!!");
 }
 ?>
 
@@ -46,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" name="password" placeholder="Пароль" required>
         <button type="submit">Войти</button>
     </form>
-    <p>Ещё не таккаунта? <a href="add_user.php">Зарегестрируйтесь</a></p>
+    <p>Ещё не аккаунта? <a href="index.php">Зарегестрируйтесь</a></p>
 </div>
 </body>
 </html>
