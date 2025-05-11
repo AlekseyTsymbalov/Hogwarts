@@ -59,7 +59,7 @@ try {
     <input type="text" name="date_of_birth" placeholder="Дата рождения" required>
     <input type="email" name="email" placeholder="Почта" required>
     <input type="password" name="password" placeholder="Пароль" required>
-    <button type="submit">Зарегестрироваться</button>
+    <button type="submit">Зарегистрироваться</button>
 </form>
 <p>Здесь начинаются ваши знания.</p>
 <?php
