@@ -6,15 +6,16 @@ const HOGWARTS_INIT = true;
 
 require_once __DIR__ . '/config/db.php';
 
-$pdo = getDB();
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $pdo = getDB();
     $email = trim($_POST['email']);
     $password = md5(trim($_POST['password']));
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch();
 
     if ($user && $password === $user['password']) {
         $_SESSION['user'] = $user;
@@ -38,17 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="container">
     <h2>Вход в Хогвартс</h2>
-    <?php
-    if (isset($error)): ?>
-        <div class="error"><?= htmlspecialchars($error) ?></div>
-    <?php
-    endif; ?>
+
     <form action="login.php" method="post">
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Пароль" required>
         <button type="submit">Войти</button>
     </form>
-    <p>Ещё не аккаунта? <a href="index.php">Зарегестрируйтесь</a></p>
+    <p>Ещё нет аккаунта? <a href="index.php">Зарегистрируйтесь</a></p>
 </div>
 </body>
 </html>
