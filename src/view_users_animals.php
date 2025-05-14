@@ -10,10 +10,14 @@ $pdo = getDB();
 
 try {
     $sql = "
-        SELECT users.first_name, animals.name, animals.type 
+        SELECT 
+            users.id AS user_id,
+            users.first_name, 
+            animals.id AS animal_id,
+            animals.name AS animal_name, 
+            animals.type AS animal_type
         FROM users
-        LEFT JOIN animals
-        ON animals.owner_id = users.id
+        LEFT JOIN animals ON animals.owner_id = users.id
         ORDER BY users.first_name";
 
     $stmt = $pdo->query($sql);
@@ -47,14 +51,14 @@ try {
                 echo '</td></tr>';
             }
             echo '<tr>
-                <td>' . htmlspecialchars($row['user_id']) . '</td>
-                <td>' . htmlspecialchars($row['first_name']) . '</td>                
+                <td>' . htmlspecialchars((string)$row['user_id']) . '</td>
+                <td>' . htmlspecialchars($row['first_name']) . '</td>
                 <td>';
 
             $currentUser = $row['user_id'];
         }
 
-        if ($row['animal_id']) {
+        if (!empty($row['animal_id'])) {
             echo htmlspecialchars($row['animal_name']) . ' (' . htmlspecialchars($row['animal_type']) . ')<br>';
         }
     }
