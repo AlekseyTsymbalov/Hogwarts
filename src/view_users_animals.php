@@ -12,16 +12,50 @@ try {
     $sql = "
         SELECT 
             users.id AS user_id,
-            users.first_name, 
+            users.first_name,
+            users.second_name,
+            users.middle_name,
             animals.id AS animal_id,
-            animals.name AS animal_name, 
+            animals.name AS animal_name,
             animals.type AS animal_type
         FROM users
         LEFT JOIN animals ON animals.owner_id = users.id
-        ORDER BY users.first_name";
+        ORDER BY users.id";
 
     $stmt = $pdo->query($sql);
     $results = $stmt->fetchAll();
+    $users = [];
+
+    foreach ($results as $result) {
+        if (!array_key_exists($result["user_id"], $users)) {
+            $users[$result['user_id']] = [
+                'user_id' => $result['user_id'],
+                'fio' => trim(
+                    sprintf(
+                        "%s %s %s",
+                        $result['first_name'],
+                        $result['second_name'],
+                        $result['middle_name']
+                    )
+                ),
+                'fio_2' => implode(
+                    ' ',
+                    [
+                        $result['second_name'],
+                        $result['first_name'],
+                        $result['middle_name'],
+                    ]
+                ),
+            ];
+
+        }
+        if ($result['animal_id']) {
+            $users[$result['user_id']]['animals'][] = [
+                'animal_type' => $result['animal_type'],
+                'animal_name' => $result['animal_name'],
+            ];
+        }
+    }
 
     echo '<!DOCTYPE html>
     <html lang="ru">
@@ -40,36 +74,33 @@ try {
         <table>
             <tr>
                 <th>ID</th>
-                <th>Имя</th>
+                <th>ФИО</th>
                 <th>Животные</th>
             </tr>';
 
-    $currentUser = null;
-    foreach ($results as $row) {
-        if ($currentUser !== $row['user_id']) {
-            if ($currentUser !== null) {
-                echo '</td></tr>';
+    foreach ($users as $user) {
+        echo '<tr>
+            <td>' . $user['user_id'] . '</td>
+            <td>' . $user['fio_2'] . '</td>
+            <td>';
+
+        if (!empty($user['animals'])) {
+            foreach ($user['animals'] as $animal) {
+                echo $animal['animal_name'] . ' (' .
+                    $animal['animal_type']
+                    . ')<br>';
             }
-            echo '<tr>
-                <td>' . htmlspecialchars((string)$row['user_id']) . '</td>
-                <td>' . htmlspecialchars($row['first_name']) . '</td>
-                <td>';
-
-            $currentUser = $row['user_id'];
+        } else {
+            echo 'Нет животных';
         }
 
-        if (!empty($row['animal_id'])) {
-            echo htmlspecialchars($row['animal_name']) . ' (' . htmlspecialchars($row['animal_type']) . ')<br>';
-        }
-    }
-
-    if ($currentUser !== null) {
         echo '</td></tr>';
     }
+
     echo '</table>
     </body>
     </html>';
 
 } catch (PDOException $e) {
-    die("Ошибка при выполнении запроса: " . htmlspecialchars($e->getMessage()));
+    die("Ошибка при выполнении запроса: " . $e->getMessage());
 }
