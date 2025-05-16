@@ -26,22 +26,18 @@ $cities = [];
 while ($city = $iterator->fetch()) {
     $cities[$city['id']] = $city;
 }
-//echo '<pre>';
-//var_dump($cities);
-//echo '</pre>';
-//die();
-$citiesResult = $stmt->fetchAll();
+
 
 $sql = "
     SELECT *
     FROM users_cities";
 
-$stmt = $pdo->query($sql);
-$usersCitiesResult = $stmt->fetchAll();
+$iterator = $pdo->query($sql);
+
 
 $usersCities = [];
 
-foreach ($usersCitiesResult as $row) {
+while ($row = $iterator->fetch()) {
     $userId = $row['user_id'];
     $cityId = $row['city_id'];
 
