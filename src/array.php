@@ -46,17 +46,23 @@ $users = [
 //    echo ($i + 1) . ". " . $users_01[$i]['name'] . " - " . $users_01[$i]['email'] . "<br>";
 //}
 
-foreach ($users as &$user) {
-    $user['city'] = 'Moscow';
-}
-unset($user);
+//foreach ($users as &$user) {
+//    $user['city'] = 'Moscow';
+//}
+//unset($user);
+//
+//echo '<pre>';
+//print_r($users);
+//echo '</pre>';
+//
+//echo "-------------------------------------------------------------------------------<br>";
+//
+//foreach ($users as $user) {
+//    echo $user['name'] . ' (' . $user['age'] . '): ' . $user['email'] . '<br>';
+//}
 
-echo '<pre>';
-print_r($users);
-echo '</pre>';
-
-echo "-------------------------------------------------------------------------------<br>";
-
+$output = [];
 foreach ($users as $user) {
-    echo $user['name'] . ' (' . $user['age'] . '): ' . $user['email'] . '<br>';
+    $output[] = sprintf("%s (%s): %s", $user['name'], $user['age'], $user['email']);
 }
+echo implode("<br>", $output);
