@@ -58,5 +58,5 @@ echo '</pre>';
 echo "-------------------------------------------------------------------------------<br>";
 
 foreach ($users as $user) {
-    echo $user['name'] . ' (' . $user['age'] . ') ' . $user['email'] . '<br>';
+    echo $user['name'] . ' (' . $user['age'] . '): ' . $user['email'] . '<br>';
 }
