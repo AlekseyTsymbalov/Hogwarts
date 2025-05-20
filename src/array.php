@@ -19,3 +19,9 @@ for ($i = count($fruits) - 1; $i >= 0; $i--) {
 }
 
 //Task_2
+$users = [
+    ['name' => 'Alice', 'age' => 25, 'email' => 'alice@example.com'],
+    ['name' => 'Bob', 'age' => 30, 'email' => 'bob@example.com'],
+    ['name' => 'Charlie', 'age' => 28, 'email' => 'charlie@example.com'],
+    ['name' => 'Diana', 'age' => 22, 'email' => 'diana@example.com']
+];
