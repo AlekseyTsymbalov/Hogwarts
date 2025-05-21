@@ -17,12 +17,12 @@ declare(strict_types = 1);
 //}
 
 //Task_2
-$users = [
-    ['name' => 'Alice', 'age' => 25, 'email' => 'alice@example.com'],
-    ['name' => 'Bob', 'age' => 30, 'email' => 'bob@example.com'],
-    ['name' => 'Charlie', 'age' => 28, 'email' => 'charlie@example.com'],
-    ['name' => 'Diana', 'age' => 22, 'email' => 'diana@example.com'],
-];
+//$users = [
+//    ['name' => 'Alice', 'age' => 25, 'email' => 'alice@example.com'],
+//    ['name' => 'Bob', 'age' => 30, 'email' => 'bob@example.com'],
+//    ['name' => 'Charlie', 'age' => 28, 'email' => 'charlie@example.com'],
+//    ['name' => 'Diana', 'age' => 22, 'email' => 'diana@example.com'],
+//];
 //foreach ($users as $user) {
 //    echo "Имя: " . $user['name'] . ", Email: " . $user['email'] . "<br>";
 //}
@@ -61,8 +61,28 @@ $users = [
 //    echo $user['name'] . ' (' . $user['age'] . '): ' . $user['email'] . '<br>';
 //}
 
-$output = [];
-foreach ($users as $user) {
-    $output[] = sprintf("%s (%s): %s", $user['name'], $user['age'], $user['email']);
+//$output = [];
+//foreach ($users as $user) {
+//    $output[] = sprintf("%s (%s): %s", $user['name'], $user['age'], $user['email']);
+//}
+//echo implode("<br>", $output);
+
+//Task_3 Циклы foreach, for, while для массивов
+
+$numbers = [3, 7, 10, 5, 12, 18, 21, 4, 9, 15];
+foreach ($numbers as $number) {
+    echo "Число: {$number} <br>";
 }
-echo implode("<br>", $output);
+echo "--------------------------------------------<br>";
+
+//for
+$length = count($numbers);
+for ($i = 0; $i < $length; $i++) {
+    $number = $numbers[$i];
+    $square = sqrt($number); //В Python так работало
+    $sqrtRound = round($square, 2);
+    echo "Индекс: $i, число: $number, квадрат числа: $sqrtRound<br>";
+}
+echo "--------------------------------------------<br>";
+
+//while
