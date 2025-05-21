@@ -79,7 +79,7 @@ echo "--------------------------------------------<br>";
 $length = count($numbers);
 for ($i = 0; $i < $length; $i++) {
     $number = $numbers[$i];
-    $square = $number * $number; //В Python так работало
+    $square = $number * $number;
     echo "Индекс: $i, число: $number, квадрат числа: $square<br>";
 }
 echo "--------------------------------------------<br>";
