@@ -79,9 +79,8 @@ echo "--------------------------------------------<br>";
 $length = count($numbers);
 for ($i = 0; $i < $length; $i++) {
     $number = $numbers[$i];
-    $square = sqrt($number); //В Python так работало
-    $sqrtRound = round($square, 2);
-    echo "Индекс: $i, число: $number, квадрат числа: $sqrtRound<br>";
+    $square = $number * $number; //В Python так работало
+    echo "Индекс: $i, число: $number, квадрат числа: $square<br>";
 }
 echo "--------------------------------------------<br>";
 
