@@ -85,4 +85,25 @@ for ($i = 0; $i < $length; $i++) {
 echo "--------------------------------------------<br>";
 
 //while
-//условие
+$index = 0;
+$sum = 0;
+$foundNumbers = [];
+
+while (isset($numbers[$index]) && $sum <= 30) {
+    $currentNumber = $numbers[$index];
+
+    if ($currentNumber % 3 === 0) {
+        echo "Число $currentNumber делится на 3<br>";
+        $sum += $currentNumber;
+        $foundNumbers[] = $currentNumber;
+
+        if ($sum > 30) {
+            echo "Сумма превысила 30, завершаю перебор<br>";
+            break;
+        }
+    }
+    $index++;
+}
+
+echo "Найденные числа: " . implode(", ", $foundNumbers) . "<br>";
+echo "Итоговая сумма: $sum";
