@@ -27,13 +27,11 @@ while ($city = $iterator->fetch()) {
     $cities[$city['id']] = $city;
 }
 
-
 $sql = "
     SELECT *
     FROM users_cities";
 
 $iterator = $pdo->query($sql);
-
 
 $usersCities = [];
 
