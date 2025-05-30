@@ -8,18 +8,20 @@ require_once __DIR__ . '/config/db.php';
 
 $pdo = getDB();
 
-$sql = "
+$sql = <<<SQL
     SELECT *
     FROM users
-    ORDER BY users.id";
+    ORDER BY users.id;
+SQL;
 
 $stmt = $pdo->query($sql);
 $users = $stmt->fetchAll();
 
-$sql = "
+$sql = <<<SQL
     SELECT *
     FROM cities
-    ORDER BY cities.id";
+    ORDER BY cities.id;
+SQL;
 
 $iterator = $pdo->query($sql);
 $cities = [];
@@ -27,9 +29,10 @@ while ($city = $iterator->fetch()) {
     $cities[$city['id']] = $city;
 }
 
-$sql = "
+$sql = <<<SQL
     SELECT *
-    FROM users_cities";
+    FROM users_cities;
+SQL;
 
 $iterator = $pdo->query($sql);
 
@@ -51,7 +54,6 @@ foreach ($users as $user) {
     if (!array_key_exists($user["id"], $result)) {
         $result[$user['id']] = [
             'id' => $user['id'],
-
             'fio' => implode(
                 ' ',
                 [
@@ -61,7 +63,6 @@ foreach ($users as $user) {
                 ]
             ),
         ];
-
     }
     $citiesId = $usersCities[$user["id"]] ?? [];
     foreach ($citiesId as $cityId) {
